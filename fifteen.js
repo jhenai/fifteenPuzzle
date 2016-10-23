@@ -12,6 +12,7 @@ window.onload = function(){
         puzzlepieces[i].setAttribute("class", "puzzlepiece") ;
         puzzlepieces[i].style.left= xpos + 'px';
         puzzlepieces[i].style.top= ypos + 'px';
+        puzzlepieces[i].style.backgroundPosition= "-" + xpos + "px " + "-" + ypos + "px";
         if (xpos < 300){
           xpos+=100;
         }
@@ -22,7 +23,7 @@ window.onload = function(){
         }
     }
     
-    var xpx=0;
+   /* var xpx=0;
     var ypx=0; 
     for(var i=0; i < puzzlepieces.length; i++){ // place background on tile
         puzzlepieces[i].style.backgroundPosition= "-" + xpx + "px " + "-" + ypx + "px";
@@ -36,13 +37,10 @@ window.onload = function(){
             ypx+=100;
         }
     
-    }
+    }*/
     
     
-  /*  puzzlepieces[0].style.backgroundPosition= "0px 0px"
-    puzzlepieces[4].style.backgroundPosition= "0px -100px"
-    puzzlepieces[8].style.backgroundPosition= "0px 200px"
-    puzzlepieces[12].style.backgroundPosition="0px 300px"*/
+  
     
     
 }
