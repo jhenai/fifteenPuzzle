@@ -28,7 +28,8 @@ window.onload = function(){
     var blockTop, blockLeft;    
      for(var i=0; i < puzzlepieces.length; i++){
           (function(index) {
-        puzzlepieces[index].addEventListener("click", function() {
+            puzzlepieces[index].addEventListener("click", move
+           /* {
             blockTop=this.offsetTop;
             blockLeft= this.offsetLeft;
             console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
@@ -38,35 +39,24 @@ window.onload = function(){
             blankTop= blockTop + "px";
             blankLeft=blockLeft + "px";
             console.log( "blankTop= " + blankTop + " blankLeft= " + blankLeft);
-         })
+         } */
+         );
           })(i);
           
-         
-     /* var blockTop= puzzlepieces[i].offsetTop;
-      var blockLeft= puzzlepieces[i].offsetLeft;
-       puzzlepieces[i].onclick=function(){
-            this.style.left= blankLeft;
-            this.style.top= blankTop;
-       }; 
-       blankTop= blockTop;
-       blankLeft=blockLeft;
-      
-        console.log(blankTop + " " + blankLeft + " " + blockLeft + " " + blockTop);
-        */
      }
     
-    /*var button= $('#shufflebutton');
     
-    var puzzlepiece = $('.puzzlepiece');
-    
-    puzzlepiece.onclick= move;
-    
-    */
+    function move(){
      
-    
-    
-    function move(e){
-       
+        blockTop=this.offsetTop;
+            blockLeft= this.offsetLeft;
+            console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
+            this.style.left= blankLeft;
+            this.style.top= blankTop;
+            
+            blankTop= blockTop + "px";
+            blankLeft=blockLeft + "px";
+            console.log( "blankTop= " + blankTop + " blankLeft= " + blankLeft);
        
     }
     
