@@ -23,24 +23,58 @@ window.onload = function(){
         }
     }
     
-   /* var xpx=0;
-    var ypx=0; 
-    for(var i=0; i < puzzlepieces.length; i++){ // place background on tile
-        puzzlepieces[i].style.backgroundPosition= "-" + xpx + "px " + "-" + ypx + "px";
-        console.log(i + "--> x: " + xpx + " y: " +ypx);
-        if(xpx<300){
-            xpx+=100;
-        }
-        else
-        {
-            xpx=0;
-            ypx+=100;
-        }
+    var blankTop= "300px";
+    var blankLeft= "300px";
+    var blockTop, blockLeft;    
+     for(var i=0; i < puzzlepieces.length; i++){
+          (function(index) {
+        puzzlepieces[index].addEventListener("click", function() {
+            blockTop=this.offsetTop;
+            blockLeft= this.offsetLeft;
+            console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
+            this.style.left= blankLeft;
+            this.style.top= blankTop;
+            
+            blankTop= blockTop + "px";
+            blankLeft=blockLeft + "px";
+            console.log( "blankTop= " + blankTop + " blankLeft= " + blankLeft);
+         })
+          })(i);
+          
+         
+     /* var blockTop= puzzlepieces[i].offsetTop;
+      var blockLeft= puzzlepieces[i].offsetLeft;
+       puzzlepieces[i].onclick=function(){
+            this.style.left= blankLeft;
+            this.style.top= blankTop;
+       }; 
+       blankTop= blockTop;
+       blankLeft=blockLeft;
+      
+        console.log(blankTop + " " + blankLeft + " " + blockLeft + " " + blockTop);
+        */
+     }
     
-    }*/
+    /*var button= $('#shufflebutton');
     
+    var puzzlepiece = $('.puzzlepiece');
+    
+    puzzlepiece.onclick= move;
+    
+    */
+     
+    
+    
+    function move(e){
+       
+       
+    }
     
   
+   
     
+    
+    
+   
     
 }
