@@ -27,40 +27,75 @@ window.onload = function(){
     var blankLeft= "300px";
     var blockTop, blockLeft;    
      for(var i=0; i < puzzlepieces.length; i++){
+         
           (function(index) {
-            puzzlepieces[index].addEventListener("click", move
-           /* {
-            blockTop=this.offsetTop;
-            blockLeft= this.offsetLeft;
-            console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
-            this.style.left= blankLeft;
-            this.style.top= blankTop;
+              
+            puzzlepieces[index].addEventListener("mouseover", function(){
+            validMove(puzzlepieces[index])
+            });
             
-            blankTop= blockTop + "px";
-            blankLeft=blockLeft + "px";
-            console.log( "blankTop= " + blankTop + " blankLeft= " + blankLeft);
-         } */
-         );
+            puzzlepieces[index].addEventListener("click", function(){
+            if (validMove(puzzlepieces[index])){
+                   move(puzzlepieces[index]);    
+            }
+            });
+            
+            puzzlepieces[index].addEventListener("mouseout", function(){
+                        puzzlepieces[index].setAttribute("class", "puzzlepiece");
+            });
+               
+            
+                
+                         
+           
+       
           })(i);
           
      }
     
     
-    function move(){
-     
-        blockTop=this.offsetTop;
-            blockLeft= this.offsetLeft;
-            console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
-            this.style.left= blankLeft;
-            this.style.top= blankTop;
+    function move(puzzlepiece){
             
+           
+            blockTop=puzzlepiece.offsetTop;
+            blockLeft= puzzlepiece.offsetLeft;
+            //console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
+            puzzlepiece.style.left= blankLeft;
+            puzzlepiece.style.top= blankTop;
+            //console.log( "blankTop was= " + blankTop + " blankLeft was= " + blankLeft);
             blankTop= blockTop + "px";
             blankLeft=blockLeft + "px";
-            console.log( "blankTop= " + blankTop + " blankLeft= " + blankLeft);
+           
        
     }
     
-  
+    function validMove(puzzlepiece){
+                blockTop=puzzlepiece.offsetTop;
+                blockLeft= puzzlepiece.offsetLeft;
+                var top= blockTop + "px";
+                var left= blockLeft + "px";
+               // console.log( " offsetTop= " + top + " offsetLeft= " + left);
+               // console.log( "blankTop was= " + blankTop + " blankLeft was= " + blankLeft);
+                
+                var testleft= Math.abs(parseInt(left) - parseInt(blankLeft));
+                if (top == blankTop && testleft==100){
+                        
+                        puzzlepiece.setAttribute("class", "puzzlepiece movablepiece");
+                        //console.log("yup should b right");
+                        return true;
+                      
+                       }
+                        
+                var testright= Math.abs(parseInt(top) - parseInt(blankTop));
+                if (left == blankLeft && testright==100){
+                        puzzlepiece.setAttribute("class", "puzzlepiece movablepiece");
+                       // console.log("yup should b right");
+                        return true;
+                       
+                       }
+                        
+        
+    }
    
     
     
