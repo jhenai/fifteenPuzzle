@@ -26,10 +26,17 @@ window.onload = function(){
     var blankTop= "300px";
     var blankLeft= "300px";
     var blockTop, blockLeft;    
+    
+    var shufflebutton = document.getElementById("shufflebutton"); 
+    shufflebutton.addEventListener("click", shuffle); // to shuffle board
+    
+      
+    
      for(var i=0; i < puzzlepieces.length; i++){
          
-          (function(index) {
-              
+          (function(index) { 
+           
+        
             puzzlepieces[index].addEventListener("mouseover", function(){
             validMove(puzzlepieces[index])
             });
@@ -52,20 +59,84 @@ window.onload = function(){
           })(i);
           
      }
+     
+     function shuffle(){
+          var tempTop, tempLeft;
+          for(var i=0; i <=10; i++){
+                var choice;
+             //   console.log("tile " + choice)
+                choice= Math.abs(Math.floor(Math.random() * 14)) ;
+                console.log(choice);
+              //  console.log("switch with : " + choice);
+               tempTop= puzzlepieces[choice].offsetTop;
+               tempLeft= puzzlepieces[choice].offsetLeft;
+              console.log("tile: " + choice + " moving to: " + blankTop + " " + blankLeft + " from: " + tempTop + " " + tempLeft); 
+                move(puzzlepieces[choice]);
+                //blankTop= tempTop + "px";
+               // blankLeft = tempLeft + "px";
+
+     }
+     }
     
     
     function move(puzzlepiece){
             
-           
             blockTop=puzzlepiece.offsetTop;
             blockLeft= puzzlepiece.offsetLeft;
-            //console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
-            puzzlepiece.style.left= blankLeft;
-            puzzlepiece.style.top= blankTop;
+            
+           
+            var top= parseInt(blockTop);
+            var left= parseInt(blockLeft);
+            var bt = parseInt(blankTop);
+            var bl = parseInt(blankLeft);
+            var id = setInterval(frame, 5);
+            //console.log( "top= " + top + " left= " + left + " bl= " + bl + " bt = " + bt);
+            
+            
+            function frame(){
+                if (top == bt && left == bl){
+                    clearInterval(id);
+                    //console.log("clearInterval");
+                }
+                else{
+                    //console.log("switch!");
+                  if (left != bl){
+                       
+                        if (left < bl){
+                        left+=10;
+                        puzzlepiece.style.left= left + "px";
+                    }
+                    else{
+                         left-=10;
+                        puzzlepiece.style.left= left + "px";
+                        
+                    }
+                   //  console.log("left: " + left);   
+                    }
+                   if (top != bt){
+                        if(top < bt){
+                    top+=10;
+                    puzzlepiece.style.top= top + "px";
+                        }
+                        else{
+                            top-=10;
+                            puzzlepiece.style.top= top + "px";
+                        }
+                       // console.log("top: " + top);
+                    }
+                   // console.log( "top= " + top + " left= " + left);
+                }
+            }
             //console.log( "blankTop was= " + blankTop + " blankLeft was= " + blankLeft);
+             puzzlepiece.style.left= bl + 'px';
+             puzzlepiece.style.top= bt + 'px';
+          //  console.log("puzzlepiece new top " +  puzzlepiece.offsetTop);
+           // console.log("puzzlepiece new left " +  puzzlepiece.offsetLeft);
             blankTop= blockTop + "px";
             blankLeft=blockLeft + "px";
-           
+          //  console.log( "top= " + top + " left= " + left);
+            
+            
        
     }
     
@@ -74,8 +145,7 @@ window.onload = function(){
                 blockLeft= puzzlepiece.offsetLeft;
                 var top= blockTop + "px";
                 var left= blockLeft + "px";
-               // console.log( " offsetTop= " + top + " offsetLeft= " + left);
-               // console.log( "blankTop was= " + blankTop + " blankLeft was= " + blankLeft);
+               
                 
                 var testleft= Math.abs(parseInt(left) - parseInt(blankLeft));
                 if (top == blankTop && testleft==100){
@@ -89,7 +159,7 @@ window.onload = function(){
                 var testright= Math.abs(parseInt(top) - parseInt(blankTop));
                 if (left == blankLeft && testright==100){
                         puzzlepiece.setAttribute("class", "puzzlepiece movablepiece");
-                       // console.log("yup should b right");
+                      
                         return true;
                        
                        }
