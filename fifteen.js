@@ -25,7 +25,10 @@ window.onload = function(){
     
     var blankTop= "300px";
     var blankLeft= "300px";
-    var blockTop, blockLeft;    
+    var blockTop, blockLeft; 
+    
+    var shufflebutton= document.getElementById('shufflebutton');
+    shufflebutton.addEventListener("click", shuffle);
      for(var i=0; i < puzzlepieces.length; i++){
          
           (function(index) {
@@ -93,12 +96,18 @@ window.onload = function(){
                         return true;
                        
                        }
-                        
         
     }
    
     
-    
+    function shuffle(){
+        for (var i=0; i<100; i++){  
+            var choice= Math.floor(Math.random()*14);
+           // console.log(choice);
+           move(puzzlepieces[choice]);
+            
+        }
+    }
     
    
     
