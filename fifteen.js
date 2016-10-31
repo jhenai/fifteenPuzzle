@@ -1,10 +1,14 @@
 /* global $ */
-/*  ID Number:      620067672
-    Extra feature:  Animations and/or transitions (piece slides in place)
-*/
+
+/**
+ *  ID Number:      620067672
+ *  Extra feature:  Animations and/or transitions (piece slides in place)
+ *
+ */
+ 
 window.onload = function(){
 
-    var puzzlearea=  $('#puzzlearea');
+   // var puzzlearea=  $('#puzzlearea');
     var puzzlepieces = document.querySelectorAll("#puzzlearea div"); // to select all puzzle pieces
     
       
@@ -26,9 +30,9 @@ window.onload = function(){
         }
     }
     
-    var blankTop= "300px";
-    var blankLeft= "300px";
-    var blockTop, blockLeft; 
+    var BLANKTOP= "300px";
+    var BLANKLEFT= "300px";
+    var BLOCKTOP, BLOCKLEFT; 
     
     var shufflebutton= document.getElementById('shufflebutton');
     shufflebutton.addEventListener("click", shuffle);
@@ -43,12 +47,12 @@ window.onload = function(){
             puzzlepieces[index].addEventListener("click", function(){
             if (validMove(this)){
                 console.log(puzzlepieces[index]);
-                blockTop=this.offsetTop;
-                blockLeft=this.offsetLeft;
-                   move(this,blankTop,blankLeft); 
-                     blankTop= blockTop + "px";
-                     blankLeft=blockLeft + "px";
-                     console.log(blankTop + " " + blankLeft);
+                BLOCKTOP=this.offsetTop;
+                BLOCKLEFT=this.offsetLeft;
+                   move(this,BLANKTOP,BLANKLEFT); 
+                     BLANKTOP= BLOCKTOP + "px";
+                     BLANKLEFT=BLOCKLEFT + "px";
+                     console.log(BLANKTOP + " " + BLANKLEFT);
            
             }
             });
@@ -56,15 +60,13 @@ window.onload = function(){
             puzzlepieces[index].addEventListener("mouseout", function(){
                        this.setAttribute("class", "puzzlepiece");
             });
-               
-            
-                
-                         
-           
-       
           })(i);
           
      }
+     /**
+      * FUNCTION move: Moves the clicked puzzlepiece to the blank space
+      *                Implements the slide animation
+      */
     
     
     function move(puzzlepiece, switchtop, switchleft){
@@ -72,18 +74,17 @@ window.onload = function(){
             var bt= parseInt(switchtop);
             var bl= parseInt(switchleft);
            
-            var id = setInterval(frame, 5);
-           // console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
-           //console.log(puzzlepiece);
-           var top= blockTop;
-           var left= blockLeft;
+           var id = setInterval(frame, 5);
+          
+           var top= BLOCKTOP;
+           var left= BLOCKLEFT;
            
             function frame(){
-               // console.log("top " + top);
+              
                  
                 if (top == bt && left == bl){
                     clearInterval(id);
-                   // console.log("clearInterval");
+                  
                 }
                 else{
                      if (top != bt){
@@ -94,15 +95,15 @@ window.onload = function(){
                          else          { 
                              top--;
                              puzzlepiece.style.top= top + "px";
-                         }
-                   
-                     }
+                         }}
+                         
                       if (left != bl){
-                        if (left < bl)  
-                        {left++;
+                        if (left < bl){
+                            left++;
                             puzzlepiece.style.left= left + "px";
                         }
-                         else          {left--;
+                         else          {
+                             left--;
                              puzzlepiece.style.left= left + "px";
                          }
                          
@@ -112,117 +113,82 @@ window.onload = function(){
             }
             }
            
-           // console.log(" Moved to Top = " + blankTop + " Left = " + blankLeft);
-          
+       
        
     }
+    /**
+     * FUNCTION validMove : checks that the black space is beside the chosen puzzlepiece before sliding 
+     *
+     */
+    
     
     function validMove(puzzlepiece){
-                blockTop=puzzlepiece.offsetTop;
-                blockLeft= puzzlepiece.offsetLeft;
-                var top= blockTop + "px";
-                var left= blockLeft + "px";
-               // console.log( " offsetTop= " + top + " offsetLeft= " + left);
-               // console.log( "blankTop was= " + blankTop + " blankLeft was= " + blankLeft);
-                
-                var testleft= Math.abs(parseInt(left) - parseInt(blankLeft));
-                if (top == blankTop && testleft==100){
-                        
+                BLOCKTOP=puzzlepiece.offsetTop;
+                BLOCKLEFT= puzzlepiece.offsetLeft;
+                var top= BLOCKTOP + "px";
+                var left= BLOCKLEFT + "px";
+               
+                var testleft= Math.abs(parseInt(left) - parseInt(BLANKLEFT));
+                if (top == BLANKTOP && testleft==100){
                         puzzlepiece.setAttribute("class", "puzzlepiece movablepiece");
-                        //console.log("yup should b right");
                         return true;
                       
                        }
                         
-                var testright= Math.abs(parseInt(top) - parseInt(blankTop));
-                if (left == blankLeft && testright==100){
+                var testright= Math.abs(parseInt(top) - parseInt(BLANKTOP));
+                if (left == BLANKLEFT && testright==100){
                         puzzlepiece.setAttribute("class", "puzzlepiece movablepiece");
-                       // console.log("yup should b right");
                         return true;
                        
                        }
         
     }
-   
+    /**
+     * FUNCTION shuffle: creates a shuffles an array 100 times and moves piece to the assigned position
+     *
+     */
     
     function shuffle(){
-       /* for (var i=0; i<4; i++){  
-            var choice= Math.floor(Math.random() * 14);
-            blockTop=puzzlepieces[choice].offsetTop;
-                blockLeft= puzzlepieces[choice].offsetLeft;
-            console.log(choice);
-           // console.log(choice);
-           move(puzzlepieces[choice],blankTop,blankLeft);
-           //var puzzleswitch;
-            blankTop= blockTop + "px";
-            blankLeft=blockLeft + "px";
-            
-        }
-        */
-        var array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-     
-    /*   for (var i = 0; i <= 14; i++) {
-            array.push(i);
-            //console.log(foo.length);
         
-            }
-       */     
-           // console.log(array);
+      
+        var shuffleArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+     
+   
             var choice;
             var temp=[];
             var index=0;
             
             for (var i=0; i<100; i++){ 
-                choice=  Math.floor(Math.random() * 14);
-                if (index < 14){
+                choice=  Math.floor(Math.random() * 15);
+                if (index <= 14){
                     index=0;
                 }
                 
-                temp[0]= array[index];
-                array[index]= array[choice];
-                array[choice]= temp[0];
-               // console.log(array);
+                temp[0]= shuffleArray[index];
+                shuffleArray[index]= shuffleArray[choice];
+                shuffleArray[choice]= temp[0];
+             
                 index++;
             }
-           console.log(array);
+          
            
            
-           //var temptop,templeft;
-           
-           for(var j=0; j < array.length; j++){
+         
+           for(var j=0; j < shuffleArray.length; j++){
                
-               blockTop=puzzlepieces[j].offsetTop;
-               blockLeft= puzzlepieces[j].offsetLeft;
-               console.log("chosen piece position: " + blockTop +" " + blockLeft);
-               var a=puzzlepieces[array[j]].offsetTop;
-               var b=  puzzlepieces[array[j]].offsetLeft;
+               BLOCKTOP=puzzlepieces[j].offsetTop;
+               BLOCKLEFT= puzzlepieces[j].offsetLeft;
+               console.log("chosen piece position: " + BLOCKTOP +" " + BLOCKLEFT);
+               var a=puzzlepieces[shuffleArray[j]].offsetTop;
+               var b=  puzzlepieces[shuffleArray[j]].offsetLeft;
                console.log("Switching with: " + a + ' ' + b);
                puzzlepieces[j].style.left= b + "px";
                puzzlepieces[j].style.top= a + "px";
                
-               puzzlepieces[array[j]].style.top= blockTop + "px";
-               puzzlepieces[array[j]].style.left= blockLeft + "px";
-              // a = blockTop;
-              // b= blockLeft;
-             //  console.log("temp = " + temptop + " " + templeft);
-              
-              
-              // move(puzzlepieces[i], a, b);
-             //  console.log("switch to: " + puzzlepieces[array[i]].offsetTop + " " + puzzlepieces[array[i]].offsetLeft);
-               //move(puzzlepieces[array[i]], temptop,templeft);
-           }
-             
-             
-            
-             //console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
-             
-             //console.log( "blankTop was= " + blankTop + " blankLeft was= " + blankLeft);
-            
-            // blankTop= blockTop + "px";
-            // blankLeft=blockLeft + "px";
+               puzzlepieces[shuffleArray[j]].style.top= BLOCKTOP + "px";
+               puzzlepieces[shuffleArray[j]].style.left= BLOCKLEFT + "px";
+              }
+        
     }
     
-  
-   
-    
-}
+};
