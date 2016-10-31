@@ -1,4 +1,7 @@
 /* global $ */
+/*  ID Number:      620067672
+    Extra feature:  Animations and/or transitions (piece slides in place)
+*/
 window.onload = function(){
 
     var puzzlearea=  $('#puzzlearea');
@@ -34,15 +37,15 @@ window.onload = function(){
           (function(index) {
               
             puzzlepieces[index].addEventListener("mouseover", function(){
-            validMove(puzzlepieces[index])
+            validMove(this);
             });
             
             puzzlepieces[index].addEventListener("click", function(){
-            if (validMove(puzzlepieces[index])){
+            if (validMove(this)){
                 console.log(puzzlepieces[index]);
-                blockTop=puzzlepieces[index].offsetTop;
-                blockLeft= puzzlepieces[index].offsetLeft;
-                   move(puzzlepieces[index],blankTop,blankLeft); 
+                blockTop=this.offsetTop;
+                blockLeft=this.offsetLeft;
+                   move(this,blankTop,blankLeft); 
                      blankTop= blockTop + "px";
                      blankLeft=blockLeft + "px";
                      console.log(blankTop + " " + blankLeft);
@@ -51,7 +54,7 @@ window.onload = function(){
             });
             
             puzzlepieces[index].addEventListener("mouseout", function(){
-                        puzzlepieces[index].setAttribute("class", "puzzlepiece");
+                       this.setAttribute("class", "puzzlepiece");
             });
                
             
