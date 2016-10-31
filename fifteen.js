@@ -39,7 +39,14 @@ window.onload = function(){
             
             puzzlepieces[index].addEventListener("click", function(){
             if (validMove(puzzlepieces[index])){
-                   move(puzzlepieces[index]);    
+                console.log(puzzlepieces[index]);
+                blockTop=puzzlepieces[index].offsetTop;
+                blockLeft= puzzlepieces[index].offsetLeft;
+                   move(puzzlepieces[index],blankTop,blankLeft); 
+                     blankTop= blockTop + "px";
+                     blankLeft=blockLeft + "px";
+                     console.log(blankTop + " " + blankLeft);
+           
             }
             });
             
@@ -57,18 +64,53 @@ window.onload = function(){
      }
     
     
-    function move(puzzlepiece){
+    function move(puzzlepiece, switchtop, switchleft){
             
+            var bt= parseInt(switchtop);
+            var bl= parseInt(switchleft);
            
-            blockTop=puzzlepiece.offsetTop;
-            blockLeft= puzzlepiece.offsetLeft;
-            //console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
-            puzzlepiece.style.left= blankLeft;
-            puzzlepiece.style.top= blankTop;
-            //console.log( "blankTop was= " + blankTop + " blankLeft was= " + blankLeft);
-            blankTop= blockTop + "px";
-            blankLeft=blockLeft + "px";
+            var id = setInterval(frame, 5);
+           // console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
+           //console.log(puzzlepiece);
+           var top= blockTop;
+           var left= blockLeft;
            
+            function frame(){
+               // console.log("top " + top);
+                 
+                if (top == bt && left == bl){
+                    clearInterval(id);
+                   // console.log("clearInterval");
+                }
+                else{
+                     if (top != bt){
+                        if (top < bt)  {
+                            top++;
+                            puzzlepiece.style.top= top + "px";
+                        }
+                         else          { 
+                             top--;
+                             puzzlepiece.style.top= top + "px";
+                         }
+                   
+                     }
+                      if (left != bl){
+                        if (left < bl)  
+                        {left++;
+                            puzzlepiece.style.left= left + "px";
+                        }
+                         else          {left--;
+                             puzzlepiece.style.left= left + "px";
+                         }
+                         
+                   
+                }
+                
+            }
+            }
+           
+           // console.log(" Moved to Top = " + blankTop + " Left = " + blankLeft);
+          
        
     }
     
@@ -101,14 +143,83 @@ window.onload = function(){
    
     
     function shuffle(){
-        for (var i=0; i<100; i++){  
-            var choice= Math.floor(Math.random()*14);
+       /* for (var i=0; i<4; i++){  
+            var choice= Math.floor(Math.random() * 14);
+            blockTop=puzzlepieces[choice].offsetTop;
+                blockLeft= puzzlepieces[choice].offsetLeft;
+            console.log(choice);
            // console.log(choice);
-           move(puzzlepieces[choice]);
+           move(puzzlepieces[choice],blankTop,blankLeft);
+           //var puzzleswitch;
+            blankTop= blockTop + "px";
+            blankLeft=blockLeft + "px";
             
         }
+        */
+        var array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+     
+    /*   for (var i = 0; i <= 14; i++) {
+            array.push(i);
+            //console.log(foo.length);
+        
+            }
+       */     
+           // console.log(array);
+            var choice;
+            var temp=[];
+            var index=0;
+            
+            for (var i=0; i<100; i++){ 
+                choice=  Math.floor(Math.random() * 14);
+                if (index < 14){
+                    index=0;
+                }
+                
+                temp[0]= array[index];
+                array[index]= array[choice];
+                array[choice]= temp[0];
+               // console.log(array);
+                index++;
+            }
+           console.log(array);
+           
+           
+           //var temptop,templeft;
+           
+           for(var j=0; j < array.length; j++){
+               
+               blockTop=puzzlepieces[j].offsetTop;
+               blockLeft= puzzlepieces[j].offsetLeft;
+               console.log("chosen piece position: " + blockTop +" " + blockLeft);
+               var a=puzzlepieces[array[j]].offsetTop;
+               var b=  puzzlepieces[array[j]].offsetLeft;
+               console.log("Switching with: " + a + ' ' + b);
+               puzzlepieces[j].style.left= b + "px";
+               puzzlepieces[j].style.top= a + "px";
+               
+               puzzlepieces[array[j]].style.top= blockTop + "px";
+               puzzlepieces[array[j]].style.left= blockLeft + "px";
+              // a = blockTop;
+              // b= blockLeft;
+             //  console.log("temp = " + temptop + " " + templeft);
+              
+              
+              // move(puzzlepieces[i], a, b);
+             //  console.log("switch to: " + puzzlepieces[array[i]].offsetTop + " " + puzzlepieces[array[i]].offsetLeft);
+               //move(puzzlepieces[array[i]], temptop,templeft);
+           }
+             
+             
+            
+             //console.log( " offsetTop= " + blockTop + " offsetLeft= " +blockLeft);
+             
+             //console.log( "blankTop was= " + blankTop + " blankLeft was= " + blankLeft);
+            
+            // blankTop= blockTop + "px";
+            // blankLeft=blockLeft + "px";
     }
     
+  
    
     
 }
