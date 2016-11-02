@@ -1,5 +1,5 @@
 
-
+/* global $ */
 /**
  *  ID Number:      620067672
  *  Extra feature:  Animations and/or transitions (piece slides in place)
@@ -46,13 +46,13 @@ window.onload = function(){
             
             puzzlepieces[index].addEventListener("click", function(){
             if (validMove(this)){
-               console.log(this);
-                BLOCKTOP=this.offsetTop;
-                BLOCKLEFT=this.offsetLeft;
+             //  console.log(this);
+                //BLOCKTOP=this.offsetTop;
+               // BLOCKLEFT=this.offsetLeft;
                      
-                     move(puzzlepieces[index],BLANKTOP,BLANKLEFT); 
-                     BLANKTOP= BLOCKTOP + "px";
-                     BLANKLEFT=BLOCKLEFT + "px";
+                     move(puzzlepieces[index]); 
+                     //BLANKTOP= BLOCKTOP + "px";
+                     //BLANKLEFT=BLOCKLEFT + "px";
                     
             }
             });
@@ -70,14 +70,16 @@ window.onload = function(){
       */
     
     
-    function move(puzzlepiece, switchtop, switchleft){
-            var bt= parseInt(switchtop);
-            var bl= parseInt(switchleft);
+    function move(puzzlepiece){
+            BLOCKTOP=puzzlepiece.offsetTop;
+            BLOCKLEFT=puzzlepiece.offsetLeft;
+            var bt= parseInt(BLANKTOP);
+            var bl= parseInt(BLANKLEFT);
             var top= BLOCKTOP;
             var left= BLOCKLEFT;
             
             puzzlepiece.setAttribute("id", "selected");
-            console.log(puzzlepiece);
+            //console.log(puzzlepiece);
             
             if (left < bl){
             $('#selected').animate(
@@ -134,6 +136,9 @@ window.onload = function(){
                     top: '-=100px'
                     });
               }
+              BLANKTOP= BLOCKTOP + "px";
+              BLANKLEFT=BLOCKLEFT + "px";
+              puzzlepiece.removeAttribute("id");
           
     }
           
