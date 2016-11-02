@@ -1,4 +1,4 @@
-/* global $ */
+
 
 /**
  *  ID Number:      620067672
@@ -46,14 +46,14 @@ window.onload = function(){
             
             puzzlepieces[index].addEventListener("click", function(){
             if (validMove(this)){
-                console.log(puzzlepieces[index]);
+               console.log(this);
                 BLOCKTOP=this.offsetTop;
                 BLOCKLEFT=this.offsetLeft;
-                   move(this,BLANKTOP,BLANKLEFT); 
+                     
+                     move(puzzlepieces[index],BLANKTOP,BLANKLEFT); 
                      BLANKTOP= BLOCKTOP + "px";
                      BLANKLEFT=BLOCKLEFT + "px";
-                     console.log(BLANKTOP + " " + BLANKLEFT);
-           
+                    
             }
             });
             
@@ -63,6 +63,7 @@ window.onload = function(){
           })(i);
           
      }
+     
      /**
       * FUNCTION move: Moves the clicked puzzlepiece to the blank space
       *                Implements the slide animation
@@ -70,52 +71,73 @@ window.onload = function(){
     
     
     function move(puzzlepiece, switchtop, switchleft){
-            
             var bt= parseInt(switchtop);
             var bl= parseInt(switchleft);
-           
-           var id = setInterval(frame, 5);
+            var top= BLOCKTOP;
+            var left= BLOCKLEFT;
+            
+            puzzlepiece.setAttribute("id", "selected");
+            console.log(puzzlepiece);
+            
+            if (left < bl){
+            $('#selected').animate(
+                    {backgroundImage: "url(background.jpg)",
+                	border: "2px solid black",
+                	height: "96px",
+                	lineHeight: "96px",
+                	position: "absolute",
+                	textAlign: "center",
+                	verticalAlign: "middle",
+                	width: "96px",
+                    left: '+=100px'
+                    });
+            }
+            
+             if (left > bl){
+                  $('#selected').animate(
+                    {backgroundImage: "url(background.jpg)",
+                	border: "2px solid black",
+                	height: "96px",
+                	lineHeight: "96px",
+                	position: "absolute",
+                	textAlign: "center",
+                	verticalAlign: "middle",
+                	width: "96px",
+                    left: '-=100px'
+                    });
+             }
+             
+             if (top < bt)  {
+                 $('#selected').animate(
+                    {backgroundImage: "url(background.jpg)",
+                	border: "2px solid black",
+                	height: "96px",
+                	lineHeight: "96px",
+                	position: "absolute",
+                	textAlign: "center",
+                	verticalAlign: "middle",
+                	width: "96px",
+                    top: '+=100px'
+                    });
+             }
+             
+              if (top > bt)  {
+                   $('#selected').animate(
+                    {backgroundImage: "url(background.jpg)",
+                	border: "2px solid black",
+                	height: "96px",
+                	lineHeight: "96px",
+                	position: "absolute",
+                	textAlign: "center",
+                	verticalAlign: "middle",
+                	width: "96px",
+                    top: '-=100px'
+                    });
+              }
           
-           var top= BLOCKTOP;
-           var left= BLOCKLEFT;
-           
-            function frame(){
-              
-                 
-                if (top == bt && left == bl){
-                    clearInterval(id);
-                  
-                }
-                else{
-                     if (top != bt){
-                        if (top < bt)  {
-                            top++;
-                            puzzlepiece.style.top= top + "px";
-                        }
-                         else          { 
-                             top--;
-                             puzzlepiece.style.top= top + "px";
-                         }}
-                         
-                      if (left != bl){
-                        if (left < bl){
-                            left++;
-                            puzzlepiece.style.left= left + "px";
-                        }
-                         else          {
-                             left--;
-                             puzzlepiece.style.left= left + "px";
-                         }
-                         
-                   
-                }
-                
-            }
-            }
-           
-       
-       
     }
+          
+    
     /**
      * FUNCTION validMove : checks that the black space is beside the chosen puzzlepiece before sliding 
      *
