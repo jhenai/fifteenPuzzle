@@ -46,14 +46,7 @@ window.onload = function(){
             
             puzzlepieces[index].addEventListener("click", function(){
             if (validMove(this)){
-             //  console.log(this);
-                //BLOCKTOP=this.offsetTop;
-               // BLOCKLEFT=this.offsetLeft;
-                     
                      move(puzzlepieces[index]); 
-                     //BLANKTOP= BLOCKTOP + "px";
-                     //BLANKLEFT=BLOCKLEFT + "px";
-                    
             }
             });
             
@@ -73,15 +66,9 @@ window.onload = function(){
     function move(puzzlepiece){
             BLOCKTOP=puzzlepiece.offsetTop;
             BLOCKLEFT=puzzlepiece.offsetLeft;
-            var bt= parseInt(BLANKTOP);
-            var bl= parseInt(BLANKLEFT);
-            var top= BLOCKTOP;
-            var left= BLOCKLEFT;
+            
             
             puzzlepiece.setAttribute("id", "selected");
-            //console.log(puzzlepiece);
-            
-            if (left < bl){
             $('#selected').animate(
                     {backgroundImage: "url(background.jpg)",
                 	border: "2px solid black",
@@ -91,54 +78,19 @@ window.onload = function(){
                 	textAlign: "center",
                 	verticalAlign: "middle",
                 	width: "96px",
-                    left: '+=100px'
+                    left: BLANKLEFT,
+                    top: BLANKTOP
+                    
                     });
-            }
-            
-             if (left > bl){
-                  $('#selected').animate(
-                    {backgroundImage: "url(background.jpg)",
-                	border: "2px solid black",
-                	height: "96px",
-                	lineHeight: "96px",
-                	position: "absolute",
-                	textAlign: "center",
-                	verticalAlign: "middle",
-                	width: "96px",
-                    left: '-=100px'
-                    });
-             }
-             
-             if (top < bt)  {
-                 $('#selected').animate(
-                    {backgroundImage: "url(background.jpg)",
-                	border: "2px solid black",
-                	height: "96px",
-                	lineHeight: "96px",
-                	position: "absolute",
-                	textAlign: "center",
-                	verticalAlign: "middle",
-                	width: "96px",
-                    top: '+=100px'
-                    });
-             }
-             
-              if (top > bt)  {
-                   $('#selected').animate(
-                    {backgroundImage: "url(background.jpg)",
-                	border: "2px solid black",
-                	height: "96px",
-                	lineHeight: "96px",
-                	position: "absolute",
-                	textAlign: "center",
-                	verticalAlign: "middle",
-                	width: "96px",
-                    top: '-=100px'
-                    });
-              }
+                  
+           
+              puzzlepiece.style.top = BLANKTOP;
+              puzzlepiece.style.left = BLANKLEFT;
               BLANKTOP= BLOCKTOP + "px";
               BLANKLEFT=BLOCKLEFT + "px";
               puzzlepiece.removeAttribute("id");
+              
+             
           
     }
           
@@ -171,51 +123,18 @@ window.onload = function(){
         
     }
     /**
-     * FUNCTION shuffle: creates a shuffles an array 100 times and moves piece to the assigned position
+     * FUNCTION shuffle: creates a shuffles by moving a random puzzle piece to the blank space 100 times
      *
      */
     
     function shuffle(){
-        
-      
-        var shuffleArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-     
-   
-            var choice;
-            var temp=[];
-            var index=0;
-            
-            for (var i=0; i<100; i++){ 
+        var choice;
+        for (var i=0; i<100; i++){ 
                 choice=  Math.floor(Math.random() * 15);
-                if (index <= 14){
-                    index=0;
-                }
-                
-                temp[0]= shuffleArray[index];
-                shuffleArray[index]= shuffleArray[choice];
-                shuffleArray[choice]= temp[0];
-             
-                index++;
-            }
-          
-           
-           
-         
-           for(var j=0; j < shuffleArray.length; j++){
-               
-               BLOCKTOP=puzzlepieces[j].offsetTop;
-               BLOCKLEFT= puzzlepieces[j].offsetLeft;
-               console.log("chosen piece position: " + BLOCKTOP +" " + BLOCKLEFT);
-               var a=puzzlepieces[shuffleArray[j]].offsetTop;
-               var b=  puzzlepieces[shuffleArray[j]].offsetLeft;
-               console.log("Switching with: " + a + ' ' + b);
-               puzzlepieces[j].style.left= b + "px";
-               puzzlepieces[j].style.top= a + "px";
-               
-               puzzlepieces[shuffleArray[j]].style.top= BLOCKTOP + "px";
-               puzzlepieces[shuffleArray[j]].style.left= BLOCKLEFT + "px";
-              }
+                move(puzzlepieces[choice]);
+        }
         
+       
     }
     
 };
